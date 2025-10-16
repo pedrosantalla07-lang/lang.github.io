@@ -1,45 +1,257 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ReelWeather</title>
-  <meta name="description" content="ReelWeather — fishing marinas, bait shops, reefs & wrecks on a fast map.">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ReelWeather — Fishing marinas, bait shops, reefs & wrecks on a fast map</title>
+  <meta name="description" content="ReelWeather is a fast fishing & boating map with marinas, bait shops, reefs & wrecks, tides, and weather." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="ReelWeather — fast fishing & boating map" />
+  <meta property="og:description" content="Marinas, bait shops, reefs & wrecks, tides, and weather in one slick app." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://play.google.com/store/apps/details?id=com.pedro.reelweather" />
+  <meta property="og:image" content="og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ReelWeather" />
+  <meta name="twitter:description" content="Fishing marinas, bait shops, reefs & wrecks on a fast map." />
+  <meta name="twitter:image" content="og-image.png" />
+
+  <!-- App deep link -->
+  <link rel="alternate" href="https://play.google.com/store/apps/details?id=com.pedro.reelweather" />
+
   <style>
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;background:#0E0E12;color:#EAEAF0}
-    .wrap{max-width:880px;margin:0 auto;padding:40px 16px}
-    .card{background:#16161C;border:1px solid #2A2A33;border-radius:16px;padding:24px}
-    a{color:#7cc7ff}
-    .pill{display:inline-block;border:1px solid #2A2A33;border-radius:999px;padding:6px 10px;margin-right:8px;background:#111118}
-    nav{margin:14px 0}
-    nav a{margin-right:14px}
-    footer{opacity:.75;margin-top:36px}
-    code{background:#111118;border:1px solid #2A2A33;border-radius:6px;padding:2px 6px}
+    :root{
+      --bg: #0E0E12;
+      --card:#14141A;
+      --edge:#252532;
+      --text:#EAEAF0;
+      --muted:#B8C2CC;
+      --brand:#7cc7ff;
+      --accent:#50E3C2;
+      --glow: 0 8px 28px rgba(124,199,255,.15);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% -10%, #142033 0%, transparent 60%),
+                  radial-gradient(900px 700px at 110% 10%, #1a1827 0%, transparent 60%),
+                  var(--bg);
+    }
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 16px 56px}
+
+    /* Header */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:10px 0;
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text)
+    }
+    .logo-badge{
+      width:36px; height:36px; border-radius:10px;
+      background: linear-gradient(180deg,#2a8bff 0%, #1653ff 100%);
+      box-shadow: var(--glow);
+      display:grid; place-items:center; font-weight:700;
+    }
+    .logo span{font-weight:700; letter-spacing:.3px}
+
+    nav a{margin-left:14px; color:var(--muted)}
+    nav a:hover{color:var(--text)}
+
+    /* Hero */
+    .hero{
+      margin-top:22px;
+      background: color-mix(in srgb, var(--card) 88%, transparent);
+      border:1px solid var(--edge);
+      border-radius: clamp(14px, 2vw, 20px);
+      padding: clamp(22px, 3.2vw, 32px);
+      box-shadow: var(--glow);
+      position:relative;
+      overflow: clip;
+      isolation:isolate;
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:auto -10% -30% -10%; height:180px;
+      background: radial-gradient(50% 180px at 50% 0%, rgba(80,227,194,.18), transparent 70%);
+      filter: blur(20px); z-index:-1;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--edge);
+      background:#111118;
+      border-radius:999px; margin-right:8px; font-size:14px; color:var(--muted)
+    }
+    .title{font-size: clamp(28px, 4.2vw, 44px); line-height:1.1; margin:14px 0 10px}
+    .lede{color:var(--muted); font-size: clamp(16px, 2.1vw, 18px); max-width:60ch}
+
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      appearance:none; border:1px solid var(--edge); background:#0f1218; color:var(--text);
+      padding:12px 16px; border-radius:12px; font-weight:600; letter-spacing:.2px;
+      transition: transform .06s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow: var(--glow);
+    }
+    .btn:hover{transform: translateY(-1px); border-color:#34405a; text-decoration:none}
+    .btn.primary{
+      background: linear-gradient(180deg,#2a8bff 0%, #1653ff 100%);
+      border-color: transparent;
+    }
+    .btn.ghost{background:transparent}
+
+    /* Feature grid */
+    .features{display:grid; gap:14px; margin:28px 0 6px;
+      grid-template-columns: repeat( auto-fit, minmax(220px,1fr) );
+    }
+    .card{
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      border:1px solid var(--edge); border-radius: var(--radius);
+      padding:18px; box-shadow: var(--glow);
+    }
+    .feat-title{font-weight:700; margin:4px 0 6px}
+    .feat-copy{color:var(--muted); margin:0}
+
+    /* Download card */
+    .download{
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .store{
+      display:inline-flex; align-items:center; gap:10px; padding:10px 14px;
+      border:1px dashed #2b3648; border-radius:12px; color:var(--text); background:#0f1218;
+    }
+    .store svg{width:22px;height:22px}
+
+    /* Footer */
+    footer{opacity:.75; margin-top:34px; font-size:14px; color:var(--muted)}
+    .inline-list{display:flex; gap:16px; flex-wrap:wrap}
+    .inline-list a{color:var(--muted)}
+    .inline-list a:hover{color:var(--text)}
+
+    /* Small helper */
+    .visually-hidden{position:absolute!important; height:1px;width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px)}
+    @media (prefers-reduced-motion:no-preference){
+      .hero{animation: pop .35s ease both}
+      @keyframes pop{from{transform:scale(.995);opacity:.0} to{transform:scale(1);opacity:1}}
+    }
   </style>
+
+  <!-- JSON-LD: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ReelWeather",
+    "applicationCategory": "WeatherApplication",
+    "operatingSystem": "Android",
+    "offers": {"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "url": "https://play.google.com/store/apps/details?id=com.pedro.reelweather",
+    "downloadUrl": "https://play.google.com/store/apps/details?id=com.pedro.reelweather",
+    "image": "og-image.png",
+    "description": "Fast fishing & boating map with marinas, bait shops, reefs & wrecks, tides, and weather.",
+    "publisher": {"@type":"Organization","name":"ReelWeather"},
+    "creator": {"@type":"Person","name":"Pedro"},
+    "supportingData": "app-ads.txt"
+  }
+  </script>
 </head>
 <body>
   <div class="wrap">
-    <h1>ReelWeather</h1>
-    <p class="pill">Boating</p><p class="pill">Weather</p>
+    <header class="topbar">
+      <a class="logo" href="./" aria-label="ReelWeather home">
+        <div class="logo-badge" aria-hidden="true">RW</div>
+        <span>ReelWeather</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="attributions.html">Credits</a>
+        <a href="app-ads.txt">app-ads.txt</a>
+        <a href="mailto:reelweather07@gmail.com">Support</a>
+      </nav>
+    </header>
 
-    <nav>
-      <!-- Links within this repo/site -->
-      <a href="attributions.html">Credits & Data Sources</a>
-      <a href="app-ads.txt">app-ads.txt</a>
-    </nav>
+    <main>
+      <section class="hero">
+        <div>
+          <span class="pill">Boating</span>
+          <span class="pill">Weather</span>
+          <h1 class="title">Fishing marinas, bait shops, reefs &amp; wrecks on a fast map.</h1>
+          <p class="lede">Find spots, check tides &amp; conditions, and get on the water faster. Built for anglers who want speed and clarity—no fluff.</p>
+          <div class="actions">
+            <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.pedro.reelweather" target="_blank" rel="noopener">Install on Google Play</a>
+            <a class="btn ghost" href="#features">See features</a>
+          </div>
+        </div>
+      </section>
 
-    <div class="card">
-      <p><strong>Welcome!</strong> This is the official site for the ReelWeather app.</p>
-      <ul>
-        <li>Google Play: <a href="https://play.google.com/store/apps/details?id=com.pedro.reelweather" target="_blank" rel="noopener">Install from Google Play</a></li>
-        <li>Support: <a href="mailto:reelweather07@gmail.com">reelweather07@gmail.com</a></li>
-        <!-- NOTE: use a relative link (no leading slash) so it works on project pages, e.g. /lang.github.io/ -->
-        <li>App-ads.txt (local copy): <a href="app-ads.txt">app-ads.txt</a></li>
-      </ul>
-    </div>
+      <section id="features" class="features" aria-label="Features">
+        <article class="card">
+          <div class="feat-title">⚡ Fast, clean map</div>
+          <p class="feat-copy">Zoom from coastline to ramp with smooth panning and crisp markers tuned for visibility in sun or night mode.</p>
+        </article>
+        <article class="card">
+          <div class="feat-title">🎣 Marinas &amp; bait shops</div>
+          <p class="feat-copy">Quick access to phone, directions, and hours. Save your favorites so launch day is painless.</p>
+        </article>
+        <article class="card">
+          <div class="feat-title">🌊 Tides &amp; marine</div>
+          <p class="feat-copy">Know the highs/lows, wave height &amp; direction, wind, and more—at a glance.</p>
+        </article>
+        <article class="card">
+          <div class="feat-title">🚨 Alerts (NWS)</div>
+          <p class="feat-copy">Heads-up on weather hazards in your area so you can plan and pivot safely.</p>
+        </article>
+      </section>
 
-    <footer>© <span id="y"></span> ReelWeather</footer>
+      <section class="card download" aria-label="Download">
+        <div>
+          <strong>Get ReelWeather</strong>
+          <p class="feat-copy" style="margin:.3rem 0 0">Free on Android. iOS coming later.</p>
+        </div>
+        <a class="store" href="https://play.google.com/store/apps/details?id=com.pedro.reelweather" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+          <!-- Simple Play icon -->
+          <svg viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.5 12.3C96.2 4 86.1 0 75.7 0 54 0 37.3 16.7 37.3 38.4v435.2C37.3 495.3 54 512 75.7 512c10.4 0 20.5-4 28.8-12.3l220.8-222c7.5-7.5 11.7-17.7 11.7-28.7 0-10.9-4.2-21.2-11.7-28.7zM366.1 193l-34.1 34.1 94.7 94.7 43.4 21.7c16.6 8.3 36.8-3.8 36.8-22.2V191.7c0-18.4-20.2-30.5-36.8-22.2l-43.4 21.7-60.6 1.8z"/></svg>
+          <span>Install from Google Play</span>
+        </a>
+      </section>
+
+      <section class="card" style="margin-top:14px">
+        <p><strong>Data sources &amp; credits</strong> — See <a href="attributions.html">Credits &amp; Data Sources</a>. Local copy of <a href="app-ads.txt">app-ads.txt</a>.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="inline-list">
+        <span>© <span id="y"></span> ReelWeather</span>
+        <a href="mailto:reelweather07@gmail.com">reelweather07@gmail.com</a>
+        <a href="https://play.google.com/store/apps/details?id=com.pedro.reelweather" target="_blank" rel="noopener">Google Play</a>
+      </div>
+    </footer>
   </div>
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+
+  <script>
+    // year stamp
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // simple hash scroll for the "See features" button
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
 </body>
 </html>
